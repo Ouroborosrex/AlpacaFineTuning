@@ -1,4 +1,4 @@
-# Dillinger
+# Finetuning LLaMA2 7B, Phi2, and Mistral on the Alpaca Dataset Using Unsloth and Accelerate
 
 ## Installation
 
