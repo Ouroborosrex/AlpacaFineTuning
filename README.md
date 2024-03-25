@@ -18,7 +18,7 @@ pip install --no-deps packaging ninja einops flash-attn
 
 
 ## Usage
-The provided `master.ipynb` file contains the necessary documentation and commands to run the code. However, you must have access to a GPU with approximately 24GB of VRAM. If you wish to use the model on a GPU with less VRAM, it is possible but you may need to adjust the `dype=float32` values with `dtype=float16`.
+The provided `master_file.ipynb` file contains the necessary documentation and commands to run the code. However, you must have access to a GPU with approximately 24GB of VRAM. If you wish to use the model on a GPU with less VRAM, it is possible but you may need to adjust the `dype=float32` values with `dtype=float16`.
 
 ## Results
 At first, I evaluated the model using the default settings found using the HuggingFace generate function and achieved the following results.
