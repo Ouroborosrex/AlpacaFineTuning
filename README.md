@@ -1,4 +1,4 @@
-# Finetuning LLaMA2 7B, Phi2, and Mistral on the Alpaca Dataset Using Unsloth and Accelerate
+# Dillinger
 
 ## Installation
 
@@ -18,7 +18,7 @@ pip install --no-deps packaging ninja einops flash-attn
 
 
 ## Usage
-The provided `master_file.ipynb` file contains the necessary documentation and commands to run the code. However, you must have access to a GPU with approximately 24GB of VRAM. If you wish to use the model on a GPU with less VRAM, it is possible but you may need to adjust the `dype=float32` values with `dtype=float16`.
+The provided `master.ipynb` file contains the necessary documentation and commands to run the code. However, you must have access to a GPU with approximately 24GB of VRAM. If you wish to use the model on a GPU with less VRAM, it is possible but you may need to adjust the `dype=float32` values with `dtype=float16`.
 
 ## Results
 At first, I evaluated the model using the default settings found using the HuggingFace generate function and achieved the following results.
@@ -33,91 +33,91 @@ The computer evaluated models overall don't reveal too much. The Bleu score is e
 
 ### Temperature Variations Tests
 
-Temperature: 0.001 | Bleu Score | Rouge Score  | BertF1
-|-|-|-|-|
+Temperature: 0.001 | Bleu Score | Rouge Score  | BertF1 | Human
+|-|-|-|-|-
 Model      |  |   |     
-LLaMA2 7B  | 0.00000    | 0.63347      | 0.80563   
-Mistral    | 0.00000    | 0.63210      | 0.79742   
-Phi2       | 0.00000    | 0.63802      | 0.80226   
+LLaMA2 7B  | 0.00000    | 0.63347      | 0.80563   | 0.87
+Mistral    | 0.00000    | 0.63210      | 0.79742   | 0.90
+Phi2       | 0.00000    | 0.63802      | 0.80226   | 0.91
 
-Temperature: 0.25 | Bleu Score | Rouge Score  | BertF1
-|-|-|-|-|
+Temperature: 0.25 | Bleu Score | Rouge Score  | BertF1 | Human
+|-|-|-|-|-|
 Model      |  |   |     
-LLaMA2 7B  | 0.00000    | 0.62554      | 0.79959   
-Mistral    | 0.00000    | 0.63716      | 0.79905   
-Phi2       | 0.00000    | 0.64338      | 0.80494  
+LLaMA2 7B  | 0.00000    | 0.62554      | 0.79959   | 0.85
+Mistral    | 0.00000    | 0.63716      | 0.79905   | 0.89
+Phi2       | 0.00000    | 0.64338      | 0.80494  | 0.89
 
-Temperature: 0.5 | Bleu Score | Rouge Score  | BertF1
-|-|-|-|-|
+Temperature: 0.5 | Bleu Score | Rouge Score  | BertF1 | Human
+|-|-|-|-|-|
 Model      |  |   |     
-LLaMA2 7B  | 0.00000    | 0.63729      | 0.80476   
-Mistral    | 0.00000    | 0.61920      | 0.79508   
-Phi2       | 0.00000    | 0.63706      | 0.80173  
+LLaMA2 7B  | 0.00000    | 0.63729      | 0.80476   | 0.84
+Mistral    | 0.00000    | 0.61920      | 0.79508   | 0.78
+Phi2       | 0.00000    | 0.63706      | 0.80173  | 0.85
 
-Temperature: 0.75 | Bleu Score | Rouge Score  | BertF1
-|-|-|-|-|
+Temperature: 0.75 | Bleu Score | Rouge Score  | BertF1 | Human
+|-|-|-|-|-
 Model      |  |   |     
-LLaMA2 7B  | 0.00000    | 0.61024      | 0.78862   
-Mistral    | 0.00000    | 0.62698      | 0.79942   
-Phi2       | 0.00000    | 0.62472      | 0.79878
+LLaMA2 7B  | 0.00000    | 0.61024      | 0.78862   | 0.72
+Mistral    | 0.00000    | 0.62698      | 0.79942   | 0.81
+Phi2       | 0.00000    | 0.62472      | 0.79878 | 0.79
 
 ### Beam Size Variations Tests
 
-Beam Size: 1      | Bleu Score | Rouge Score  | BertF1    
-|-|-|-|-|
+Beam Size: 1      | Bleu Score | Rouge Score  | BertF1 | Human    
+|-|-|-|-|-
 Model      |  |   |     
-LLaMA2 7B  | 0.00000    | 0.62731      | 0.79732   
-Mistral    | 0.00000    | 0.60719      | 0.79311   
-Phi2       | 0.00000    | 0.59868      | 0.77311  
+LLaMA2 7B  | 0.00000    | 0.62731      | 0.79732   | 0.8
+Mistral    | 0.00000    | 0.60719      | 0.79311   | 0.68
+Phi2       | 0.00000    | 0.59868      | 0.77311  | 0.67
 
-Beam Size: 2     | Bleu Score | Rouge Score  | BertF1    
-|-|-|-|-|
+Beam Size: 2     | Bleu Score | Rouge Score  | BertF1 | Human
+|-|-|-|-|-
 Model      |  |   |     
-LLaMA2 7B  | 0.00000    | 0.63415      | 0.79749   
-Mistral    | 0.00000    | 0.63944      | 0.79521   
-Phi2       | 0.00000    | 0.64762      | 0.80356 
+LLaMA2 7B  | 0.00000    | 0.63415      | 0.79749   | 0.81
+Mistral    | 0.00000    | 0.63944      | 0.79521    | 0.84
+Phi2       | 0.00000    | 0.64762      | 0.80356 | 0.87
 
-Beam Size: 4      | Bleu Score | Rouge Score  | BertF1    
-|-|-|-|-|
+Beam Size: 4      | Bleu Score | Rouge Score  | BertF1 | Human
+|-|-|-|-|-
 Model      |  |   |     
-LLaMA2 7B  | 0.00000    | 0.63459      | 0.79710   
-Mistral    | 0.00000    | 0.63602      | 0.79331   
-Phi2       | 0.00000    | 0.64330      | 0.80417  
+LLaMA2 7B  | 0.00000    | 0.63459      | 0.79710   | 0.85
+Mistral    | 0.00000    | 0.63602      | 0.79331   | 0.85
+Phi2       | 0.00000    | 0.64330      | 0.80417  | 0.87
 
-Beam Size: 8     | Bleu Score | Rouge Score  | BertF1    
-|-|-|-|-|
+Beam Size: 8     | Bleu Score | Rouge Score  | BertF1 | Human
+|-|-|-|-|-
 Model      |  |   |     
-LLaMA2 7B  | 0.00000    | 0.62951      | 0.79618   
-Mistral    | 0.00000    | 0.62115      | 0.79301   
-Phi2       | 0.00000    | 0.64089      | 0.80295
+LLaMA2 7B  | 0.00000    | 0.62951      | 0.79618   | 0.85
+Mistral    | 0.00000    | 0.62115      | 0.79301   | 0.83
+Phi2       | 0.00000    | 0.64089      | 0.80295 | 0.86
 ### Top K Variations Tests
-Top K:-2      | Bleu Score | Rouge Score  | BertF1    
-|-|-|-|-|
+Top K:-2      | Bleu Score | Rouge Score  | BertF1  | Human
+|-|-|-|-|-
 Model      |  |   |     
-LLaMA2 7B  | 0.00000    | 0.64563      | 0.80560   
-Mistral    | 0.00000    | 0.60735      | 0.78687   
-Phi2       | 0.00000    | 0.63009      | 0.79748 
+LLaMA2 7B  | 0.00000    | 0.64563      | 0.80560   | 0.85
+Mistral    | 0.00000    | 0.60735      | 0.78687   | 0.68
+Phi2       | 0.00000    | 0.63009      | 0.79748 | 0.83
 
-Top-K: 4      | Bleu Score | Rouge Score  | BertF1    
-|-|-|-|-|
+Top-K: 4      | Bleu Score | Rouge Score  | BertF1 | Human
+|-|-|-|-|-
 Model      |  |   |     
-LLaMA2 7B  | 0.00000    | 0.63535      | 0.80471   
-Mistral    | 0.00000    | 0.62122      | 0.79976   
-Phi2       | 0.00000    | 0.61698      | 0.79038 
+LLaMA2 7B  | 0.00000    | 0.63535      | 0.80471   | 0.8
+Mistral    | 0.00000    | 0.62122      | 0.79976   | 0.78
+Phi2       | 0.00000    | 0.61698      | 0.79038 | 0.75
 
-Top-K: 8      | Bleu Score | Rouge Score  | BertF1    
-|-|-|-|-|
+Top-K: 8      | Bleu Score | Rouge Score  | BertF1  | Human
+|-|-|-|-|-
 Model      |  |   |     
-LLaMA2 7B  | 0.00000    | 0.62703      | 0.79655   
-Mistral    | 0.00000    | 0.59929      | 0.78640   
-Phi2       | 0.00000    | 0.61810      | 0.78711   
+LLaMA2 7B  | 0.00000    | 0.62703      | 0.79655   | 0.74
+Mistral    | 0.00000    | 0.59929      | 0.78640   | 0.67
+Phi2       | 0.00000    | 0.61810      | 0.78711   | 0.71
 
-Top-K:  16     | Bleu Score | Rouge Score  | BertF1    
-|-|-|-|-|
+Top-K:  16     | Bleu Score | Rouge Score  | BertF1 | Human
+|-|-|-|-|-
 Model      |  |   |     
-LLaMA2 7B  | 0.00000    | 0.62263      | 0.79828   
-Mistral    | 0.00000    | 0.61639      | 0.79472   
-Phi2       | 0.00000    | 0.60339      | 0.78556
+LLaMA2 7B  | 0.00000    | 0.62263      | 0.79828   | 0.69
+Mistral    | 0.00000    | 0.61639      | 0.79472  | 0.68 
+Phi2       | 0.00000    | 0.60339      | 0.78556 | 0.66
 
 The main three hyperparameters are compared above. The general trend was that the temperature increasing caused the models to behave more eradically and generated irrelavant information, this is to be expected when increasing the temperature. Increasing the beam size had a positive effect and all of the metrics increased as it did. This is also expected since it controls the number of candidate paths taken at each step. The top-k tests showed that the score decreased as the top-k increases. This controls the number of vocabulary words the model can choose from during generation, so the more words there can sometimes be more fluency but a potential to stray from the truth.
 
